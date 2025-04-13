@@ -1,10 +1,31 @@
 %{
+#define MAX_IDS 1000
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 extern int yylex(void);
 void yyerror(const char *s);
 extern int line_num;
+int has_error = 0;
+
+char* ids_seen[MAX_IDS];
+int ids_count = 0;
+
+int id_exists(const char* id) {
+    for (int i = 0; i < ids_count; i++) {
+        if (strcmp(ids_seen[i], id) == 0)
+            return 1;
+    }
+    return 0;
+}
+
+void add_id(const char* id) {
+    if (ids_count >= MAX_IDS) {
+        fprintf(stderr, "Σφάλμα: Υπέρβαση μέγιστου αριθμού id.\n");
+        exit(1);
+    }
+    ids_seen[ids_count++] = strdup(id);
+}
 
 %}
 
@@ -14,6 +35,7 @@ extern int line_num;
 }
 
 %type <str> quoted_string
+%type <str> text
 %token <str> STRING TEXT
 %token <num> NUMBER
 
@@ -65,7 +87,12 @@ meta_list:
 ;
 
 title:
-    TITLE_OPEN text TITLE_CLOSE
+    TITLE_OPEN text TITLE_CLOSE {
+        if (strlen($2) > 60) {
+            fprintf(stderr, "Σφάλμα: Το περιεχόμενο του <title> υπερβαίνει τους 60 χαρακτήρες.\n");
+            has_error = 1;
+        }
+    }
 ;
 
 meta:
@@ -228,7 +255,15 @@ div_content:
 ;
 
 id_attr:
-    ID_ATTR quoted_string
+    ID_ATTR quoted_string {
+        if (id_exists($2)) {
+            fprintf(stderr, "Σφάλμα: Το id \"%s\" έχει ήδη χρησιμοποιηθεί.\n", $2);
+            has_error = 1;
+        } else {
+            add_id($2);
+        }
+        free($2); // αν χρησιμοποιείς strdup στον lexer
+    }
 ;
 
 for_attr:

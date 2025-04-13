@@ -126,7 +126,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 11 "myhtml.y"
+#line 32 "myhtml.y"
 {
     char* str;
     int num;
