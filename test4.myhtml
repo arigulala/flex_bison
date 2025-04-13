@@ -1,0 +1,19 @@
+<MYHTML>
+  <head>
+    <title>"My Form Page"</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="A simple form page for testing">
+  </head>
+  <body>
+    <div id="formSection" style="margin-top: 20px;">
+      <form id="userForm" style="border: 1px solid black;">
+        <label for="usernameInput" id="usernameLabel">Username:</label>
+        <input type="text" id="usernameInput" value="guestUser" />
+        <label for="passwordInput" id="passwordLabel">Password:</label>
+        <input type="password" id="passwordInput" />
+        <input type="submit" id="loginButton" value="Log in" />
+      </form>
+      <a href="https://www.login.com">Forgot Password?</a>
+    </div>
+  </body>
+</MYHTML>
