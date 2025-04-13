@@ -1,14 +1,12 @@
 <MYHTML>
   <head>
     <title>"Image Gallery"</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="Jane Smith">
+    <meta charset="UTF-8" id="q">
+    <meta name="author" content="Jane Smith" id="t">
   </head>
   <body>
     <div id="gallery" style="display: flex; justify-content: space-around;">
-      <img src="image1.jpg" alt="Gallery Image 1" width=400 height=300 />
-      <img src="image2.jpg" alt="Gallery Image 2" width=400 height=300 />
-      <img src="image3.jpg" alt="Gallery Image 3" width=400 height=300 />
+      <img  id="ee"src="image1.jpg" alt="Gallery Image 1" width=400 height=300 />
       <form id="subscribeForm" style="margin-top: 20px;">
         <label for="email" id="subscribeLabel">Enter your email to subscribe:</label>
         <input type="text" id="email" />

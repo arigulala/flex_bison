@@ -74,6 +74,6 @@ int line_num = 1;
 [0-9]+             { yylval.num = atoi(yytext); return NUMBER; }
 [ \t\r]+           { /* skip whitespace */ }
 
-[a-zA-Z0-9_!@#$%^&*-]+  { yylval.str = strdup(yytext); return TEXT; }
+[a-zA-Z0-9_?:!@#$%^&*-]*  { yylval.str = strdup(yytext); return TEXT; }
 .                  { printf("Λάθος χαρακτήρας στη γραμμή %d: %s\n", line_num, yytext); exit(1); }
 %%

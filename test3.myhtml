@@ -1,14 +1,14 @@
 <MYHTML>
   <head>
     <title>"Example Page"</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="John Doe">
+    <meta name="23" content="d" id="1">
+    <meta charset="UTF-8" id="4">
   </head>
   <body>
-    <div id="main" style="background-color: lightgray;">
+    <div style="lightgray" id="main">
       <p id="intro">Welcome to our website!</p>
-      <a href="https://www.example.com" style="font-size: 14px;">Click here to visit</a>
-      <img src="image.jpg" alt="Example Image" width=300 height=200 />
+      <a href="httpswwwexamplecom" id="qq">Click here to visit</a>
+      <img  id="ela" src="image.jpg" alt="Example Image"  height=200  />
       <form id="contactForm" style="font-size: 12px;">
         <label for="emailInput" id="emailLabel"  style="color: blue;">Email</label>
         <input type="text" id="emailInput" value="user@example.com" />

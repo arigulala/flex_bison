@@ -69,8 +69,10 @@ title:
 ;
 
 meta:
-    META_OPEN meta_charset TAG_END
-    | META_OPEN meta_name_content TAG_END
+      META_OPEN id_attr meta_charset TAG_END
+    | META_OPEN id_attr meta_name_content TAG_END
+    | META_OPEN meta_charset id_attr TAG_END
+    | META_OPEN meta_name_content id_attr TAG_END
 ;
 
 meta_charset:
@@ -100,14 +102,17 @@ body_element:
 ;
 
 p:
-    P_OPEN p_attr_opt TAG_END text_opt P_CLOSE
+    P_OPEN p_attr TAG_END text_opt P_CLOSE
 ;
 
-p_attr_opt:
-   id_attr style_attr
-    | style_attr id_attr
-    | id_attr
-    | style_attr
+p_attr:
+   id_attr p_opt_attr
+    | p_opt_attr id_attr
+    
+;
+
+p_opt_attr:
+    style_attr
     | /* empty */
 ;
 
@@ -116,11 +121,9 @@ a:
 ;
 
 a_attrs:
-    HREF_ATTR quoted_string
-    | STYLE_ATTR quoted_string
-    | HREF_ATTR quoted_string STYLE_ATTR quoted_string
-    | STYLE_ATTR quoted_string HREF_ATTR quoted_string
-    | /* empty */
+   
+    | id_attr href_attr
+    | href_attr id_attr
 ;
 
 a_content:
@@ -136,26 +139,36 @@ img:
 ;
 
 img_attrs:
-     img_attr  img_attrs
-      | /* empty */
+    src_attr alt_attr id_attr img_opt_attrs
+  | src_attr id_attr alt_attr img_opt_attrs
+  | alt_attr id_attr src_attr img_opt_attrs
+  | alt_attr src_attr id_attr img_opt_attrs
+  | id_attr alt_attr src_attr img_opt_attrs
+  | id_attr src_attr alt_attr img_opt_attrs
 ;
 
-img_attr:
-    SRC_ATTR quoted_string 
-    |ALT_ATTR quoted_string
-    |WIDTH_ATTR NUMBER
-    |HEIGHT_ATTR NUMBER
-;  
+img_opt_attrs:
+    img_opt_attr img_opt_attrs
+    | /* empty */
+;
+
+img_opt_attr:
+    width_attr
+    | height_attr
+;
 
 form:
     FORM_OPEN form_attr_opt TAG_END form_content FORM_CLOSE
 ;
 
 form_attr_opt:
-id_attr style_attr
-    | style_attr id_attr
-    | id_attr
-    | style_attr
+      id_attr form_opt_attr
+    | form_opt_attr id_attr
+    
+;
+
+form_opt_attr:
+    style_attr
     | /* empty */
 ;
 
@@ -168,33 +181,35 @@ form_element:
     | label
 
 input:
-    INPUT_OPEN  input_attr_list SELF_CLOSE
+    INPUT_OPEN input_attrs SELF_CLOSE
+;
 
-input_attr_list:
-    input_attr input_attr_list
+input_attrs:
+    type_attr id_attr input_opt_attrs
+    | id_attr type_attr input_opt_attrs
+;
+input_opt_attrs:
+    input_opt_attr input_opt_attrs
     | /* empty */
 ;
 
-input_attr:
-    TYPE_ATTR quoted_string
-    | ID_ATTR quoted_string
-    | VALUE_ATTR quoted_string
+input_opt_attr:
+    value_attr
     | style_attr
 ;
 
 label:
-    LABEL_OPEN label_attr_list TAG_END text_opt LABEL_CLOSE
+    LABEL_OPEN label_attrs TAG_END text_opt LABEL_CLOSE
 ;
 
-label_attr_list:
-    label_attr label_attr_list
-  | /* empty */
+label_attrs:
+    id_attr for_attr label_opt_attr
+    | for_attr id_attr label_opt_attr
 ;
 
-label_attr:
-    id_attr
-  | for_attr
-  | style_attr
+label_opt_attr:
+    style_attr
+    | /* empty */
 ;
 
 div:
@@ -202,13 +217,14 @@ div:
 ;
 
 div_attr_opt:
-    id_attr style_attr
-    | style_attr id_attr
-    | id_attr
-    | style_attr
+    id_attr div_opt_attr
+    | div_opt_attr id_attr
+   
+;
+div_opt_attr:
+    style_attr
     | /* empty */
 ;
-
 div_content:
     body_content
 ;
@@ -224,6 +240,34 @@ for_attr:
 style_attr:
     STYLE_ATTR quoted_string
 ;
+
+src_attr:
+    SRC_ATTR quoted_string
+;
+
+alt_attr:
+    ALT_ATTR quoted_string
+;
+
+width_attr:
+    WIDTH_ATTR NUMBER
+;
+
+height_attr:
+    HEIGHT_ATTR NUMBER
+;
+
+value_attr:
+    VALUE_ATTR quoted_string 
+;
+
+type_attr:
+    TYPE_ATTR quoted_string 
+;
+
+href_attr:
+ HREF_ATTR quoted_string
+ ;
 
 quoted_string:
      STRING 
