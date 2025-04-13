@@ -1,8 +1,8 @@
 <MYHTML>
   <head>
     <title>"Image Gallery"</title>
-    <meta charset="UTF-8" id="q">
-    <meta name="author" content="Jane Smith" id="t">
+    <meta charset="UTF-8">
+    <meta name="author" content="Jane Smith">
   </head>
   <body>
     <div id="gallery" style="display: flex; justify-content: space-around;">

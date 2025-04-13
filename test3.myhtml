@@ -1,8 +1,8 @@
 <MYHTML>
   <head>
     <title>"Example Page"</title>
-    <meta name="23" content="d" id="1">
-    <meta charset="UTF-8" id="4">
+    <meta name="23" content="d" >
+    <meta charset="UTF-8" >
   </head>
   <body>
     <div style="lightgray" id="main">

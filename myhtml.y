@@ -69,12 +69,10 @@ title:
 ;
 
 meta:
-      META_OPEN id_attr meta_charset TAG_END
-    | META_OPEN id_attr meta_name_content TAG_END
-    | META_OPEN meta_charset id_attr TAG_END
-    | META_OPEN meta_name_content id_attr TAG_END
+      META_OPEN meta_charset TAG_END
+    | META_OPEN meta_name_content TAG_END
 ;
-
+   
 meta_charset:
     CHARSET_ATTR quoted_string
 ;

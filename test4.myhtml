@@ -1,8 +1,8 @@
 <MYHTML>
   <head>
     <title>"My Form Page"</title>
-    <meta charset="UTF-8" id="ww">
-    <meta name="description" content="A simple form page for testing" id="sd" >
+    <meta charset="UTF-8">
+    <meta name="description" content="A simple form page for testing"  >
   </head>
   <body>
     <div id="formSection" style="margin-top: 20px;">
