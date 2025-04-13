@@ -1,0 +1,72 @@
+<document> ::= <myhtml_element>
+<myhtml_element> ::= "<MYHTML>" <head_opt> <body> "</MYHTML>"
+<head_opt> ::= <head> | ε
+
+<head> ::= "<head>" <head_content> "</head>"
+<head_content> ::= <title> <meta_list>
+<meta_list> ::= <meta> <meta_list> | ε
+
+<title> ::= "<title>" <text> "</title>"
+<meta> ::= "<meta" <meta_charset> ">"
+         | "<meta" <meta_name_content> ">"
+
+<meta_charset> ::= 'charset=' <quoted_string>
+<meta_name_content> ::= 'name=' <quoted_string> 'content=' <quoted_string>
+
+<body> ::= "<body>" <body_content> "</body>"
+<body_content> ::= <body_element> <body_content> | ε
+
+<body_element> ::= <p> | <a> | <img> | <form> | <div> | <comment>
+
+<p> ::= "<p" <p_attr_opt> ">" <text_opt> "</p>"
+<p_attr_opt> ::= <style_attr> | ε
+
+<a> ::= "<a" <a_attrs> ">" <a_content> "</a>"
+<a_attrs> ::= <href_attr>
+<a_content> ::= <text_opt> |  <img> <text_opt> | <text_opt> <img>
+
+<img> ::= "<img" <img_attrs> "/>"
+<img_attrs> ::=  <src_attr> <alt_attr> <img_opt_attrs>
+<img_opt_attrs> ::= <img_attr> <img_opt_attrs> | ε
+<img_attr> ::= <width_attr> | <height_attr>
+
+<form> ::= "<form" <form_attr_opt> ">" <form_content> "</form>"
+<form_attr_opt> ::= <style_attr> | ε
+<form_content> ::= <input> <form_must> | <label> <form_must> 
+<form_must> ::= <form_content> | ε
+
+<input> ::= "<input" <input_attrs> "/>"
+<input_attrs> ::=  <type_attr> <input_opt_attrs>
+<input_opt_attrs> ::= <input_attr> <input_opt_attrs> | ε
+<input_attr> ::= <value_attr> | <style_attr>
+
+<label> ::= "<label" <label_attrs> ">" <text_opt> "</label>"
+<label_attrs> ::= <for_attr> <style_attr> | <for_attr> | ε
+
+<div> ::= "<div" <div_attr_opt> ">" <div_content> "</div>"
+<div_attr_opt> ::= <style_attr> | ε
+<div_content> ::= <body_content>
+
+-- Γενικές οντότητες
+
+<href_attr> ::= 'href=' <quoted_string>
+<src_attr> ::= 'src=' <quoted_string>
+<alt_attr> ::= 'alt=' <quoted_string>
+<type_attr> ::= 'type=' <quoted_string>
+<value_attr> ::= 'value=' <quoted_string>
+<for_attr> ::= 'for=' <quoted_string>
+<style_attr> ::= 'style=' <quoted_string>
+<width_attr> ::= 'width=' <number>
+<height_attr> ::= 'height=' <number>
+
+<quoted_string> ::= '"' <string> '"' | "'" <string> "'"
+<string> ::= <char> <string> | ε
+<char> ::= any character except quote
+
+<text> ::= <char> <text> | ε
+<text_opt> ::= <text> | ε
+<comment_text> ::= <char> <comment_text> | ε
+
+<number> ::= <digit> <number> | <digit>
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<comment> ::= "<!--" <comment_text> "-->"

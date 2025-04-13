@@ -1,0 +1,9 @@
+<MYHTML>
+  <head>
+    <title>"Page"</title>
+  </head>
+  <body>
+  <form id="f1" style="font_size:12px">
+    </form>
+  </body>
+</MYHTML>

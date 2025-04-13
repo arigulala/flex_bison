@@ -1,0 +1,11 @@
+<MYHTML>
+  <head>
+    <title>"Test"</title>
+  </head>
+  <body>
+    <form>
+      <label id="12" for="esd" style="123">email</label>
+      <input type="text" id="emailInput" value="test@example.com"/>
+    </form>
+  </body>
+</MYHTML>
