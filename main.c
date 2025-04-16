@@ -2,16 +2,32 @@
 #include <stdlib.h>
 #include <regex.h>  
 #include <string.h>
-
+int is_valid_type(const char *type);
 extern int yyparse(void);
 extern FILE *yyin;
 extern int line_num;
 extern int has_error;
-
-// ✅ Δήλωση regex object
 regex_t url_regex;
 
-// ✅ Συνάρτηση για href έλεγχο
+int is_valid_url(const char *url) {
+    if (!url) return 0;
+    size_t len = strlen(url);
+    if (len >= 2 && url[0] == '"' && url[len - 1] == '"') {
+        char *start = strndup(url + 1, len - 2);
+        if (!start) return 0;
+
+        regex_t regex;
+        int result;
+        const char *pattern = "^(https?://|/|#)[^\\s\"']+$";
+        regcomp(&regex, pattern, REG_EXTENDED | REG_NOSUB);
+        result = regexec(&regex, start, 0, NULL, 0);
+        regfree(&regex);
+        free(start);
+        return result == 0;
+    }
+    return 0;
+}
+
 int is_valid_href(const char* href) {
     const char* start = href;
     size_t len = strlen(href);
@@ -31,6 +47,7 @@ int is_valid_href(const char* href) {
 }
 
 int main(int argc, char **argv) {
+  
     if (argc != 2) {
         fprintf(stderr, "Χρήση: %s <αρχείο_myhtml>\n", argv[0]);
         return 1;

@@ -1,6 +1,6 @@
 <MYHTML>
   <head>
-    <title>"This is not a proper title under sixty characters for sure!!!"</title>
+    <title>"This is not a proper title under sixty characters for sure"</title>
   </head>
   <body>
   <form id="f1" style="font_size:12px">

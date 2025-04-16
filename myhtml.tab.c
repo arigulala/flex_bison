@@ -159,13 +159,25 @@
 #include <stdlib.h>
 #include <string.h>
 extern int yylex(void);
-extern int is_valid_href(const char *href);
 void yyerror(const char *s);
+extern int is_valid_url(const char *url);
+extern int is_valid_href(const char *href);
+extern int is_valid_type(const char *type);
 extern int line_num;
+int submit_count = 0;
+int last_element_is_submit = 0;
 int has_error = 0;
-
 char* ids_seen[MAX_IDS];
 int ids_count = 0;
+
+int is_valid_type(const char *type) {
+    return (
+        strcmp(type, "text") == 0 ||
+        strcmp(type, "checkbox") == 0 ||
+        strcmp(type, "radio") == 0 ||
+        strcmp(type, "submit") == 0
+    );
+}
 
 int id_exists(const char* id) {
     for (int i = 0; i < ids_count; i++) {
@@ -205,13 +217,13 @@ void add_id(const char* id) {
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 33 "myhtml.y"
+#line 45 "myhtml.y"
 {
     char* str;
     int num;
 }
 /* Line 193 of yacc.c.  */
-#line 215 "myhtml.tab.c"
+#line 227 "myhtml.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -224,7 +236,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 228 "myhtml.tab.c"
+#line 240 "myhtml.tab.c"
 
 #ifdef short
 # undef short
@@ -544,16 +556,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    65,    65,    69,    73,    74,    78,    82,    86,    87,
-      91,   100,   101,   105,   109,   113,   117,   118,   122,   123,
-     124,   125,   126,   127,   131,   135,   136,   141,   142,   146,
-     149,   151,   152,   156,   157,   158,   159,   160,   164,   168,
-     169,   170,   171,   172,   173,   177,   178,   182,   183,   187,
-     191,   192,   197,   198,   202,   203,   206,   207,   210,   214,
-     215,   218,   219,   223,   224,   228,   232,   233,   237,   238,
-     242,   246,   247,   251,   252,   255,   259,   271,   275,   279,
-     283,   287,   291,   295,   299,   303,   312,   316,   317,   321,
-     322,   323,   327
+       0,    77,    77,    81,    85,    86,    90,    94,    98,    99,
+     103,   112,   113,   117,   121,   125,   129,   130,   134,   135,
+     136,   137,   138,   139,   143,   147,   148,   153,   154,   158,
+     161,   163,   164,   168,   169,   170,   171,   172,   176,   180,
+     181,   182,   183,   184,   185,   189,   190,   194,   195,   199,
+     203,   204,   209,   210,   214,   215,   218,   219,   222,   226,
+     227,   230,   231,   235,   236,   240,   244,   245,   249,   250,
+     254,   258,   259,   263,   264,   267,   271,   283,   287,   291,
+     300,   304,   308,   312,   316,   345,   354,   358,   359,   363,
+     364,   365,   369
 };
 #endif
 
@@ -1575,7 +1587,7 @@ yyreduce:
   switch (yyn)
     {
         case 10:
-#line 91 "myhtml.y"
+#line 103 "myhtml.y"
     {
         if (strlen((yyvsp[(2) - (3)].str)) > 60) {
             fprintf(stderr, "Σφάλμα: Το περιεχόμενο του <title> υπερβαίνει τους 60 χαρακτήρες.\n");
@@ -1585,7 +1597,7 @@ yyreduce:
     break;
 
   case 76:
-#line 259 "myhtml.y"
+#line 271 "myhtml.y"
     {
         if (id_exists((yyvsp[(2) - (2)].str))) {
             fprintf(stderr, "Σφάλμα: Το id \"%s\" έχει ήδη χρησιμοποιηθεί.\n", (yyvsp[(2) - (2)].str));
@@ -1597,8 +1609,48 @@ yyreduce:
     ;}
     break;
 
+  case 79:
+#line 291 "myhtml.y"
+    {
+        if (!is_valid_url((yyvsp[(2) - (2)].str))) {
+    fprintf(stderr, "Σφάλμα: Η τιμή του src είναι μη έγκυρη: %s\n", (yyvsp[(2) - (2)].str));
+    has_error = 1;
+  }
+;}
+    break;
+
+  case 84:
+#line 316 "myhtml.y"
+    {
+      char *type_value = strndup((yyvsp[(2) - (2)].str) + 1, strlen((yyvsp[(2) - (2)].str)) - 2);
+         if (!is_valid_type(type_value)) {
+    printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
+    has_error = 1;
+}
+
+if (strcmp(type_value, "submit") == 0) {
+    submit_count++;
+    last_element_is_submit = 1;
+ } else {
+    last_element_is_submit = 0;
+  }
+
+        if (submit_count > 1) {
+        printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
+        has_error = 1;
+    }
+    
+        if (submit_count == 1 && !last_element_is_submit) {
+        printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
+        has_error = 1;
+    }
+
+   
+;}
+    break;
+
   case 85:
-#line 303 "myhtml.y"
+#line 345 "myhtml.y"
     {
         if (!is_valid_href((yyvsp[(2) - (2)].str))) {
             printf("Σφάλμα: Η τιμή του href είναι μη έγκυρη: \"%s\"\n", (yyvsp[(2) - (2)].str));
@@ -1609,7 +1661,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1613 "myhtml.tab.c"
+#line 1665 "myhtml.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1823,7 +1875,7 @@ yyreturn:
 }
 
 
-#line 330 "myhtml.y"
+#line 372 "myhtml.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Σφάλμα στη γραμμή %d: %s\n", line_num, s);

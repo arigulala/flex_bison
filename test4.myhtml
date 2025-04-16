@@ -10,8 +10,9 @@
         <label for="usernameInput" id="usernameLabel">Username:</label>
         <input type="text" id="usernameInput" value="guestUser" />
         <label for="passwordInput" id="passwordLabel">Password:</label>
-        <input type="password" id="passwordInput" />
-        <input type="submit" id="loginButton" value="Log in" />
+        <input type="checkbox" id="passwordInput" />
+        <input type="radio" id="loginButton" value="Log in" />
+        <input type="submit" id="login" value="Log in" />
       </form>
       <a href="https://www.login.com" id="ww">Forgot Password?</a>
     </div>

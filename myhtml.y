@@ -4,13 +4,25 @@
 #include <stdlib.h>
 #include <string.h>
 extern int yylex(void);
-extern int is_valid_href(const char *href);
 void yyerror(const char *s);
+extern int is_valid_url(const char *url);
+extern int is_valid_href(const char *href);
+extern int is_valid_type(const char *type);
 extern int line_num;
+int submit_count = 0;
+int last_element_is_submit = 0;
 int has_error = 0;
-
 char* ids_seen[MAX_IDS];
 int ids_count = 0;
+
+int is_valid_type(const char *type) {
+    return (
+        strcmp(type, "text") == 0 ||
+        strcmp(type, "checkbox") == 0 ||
+        strcmp(type, "radio") == 0 ||
+        strcmp(type, "submit") == 0
+    );
+}
 
 int id_exists(const char* id) {
     for (int i = 0; i < ids_count; i++) {
@@ -276,7 +288,12 @@ style_attr:
 ;
 
 src_attr:
-    SRC_ATTR quoted_string
+    SRC_ATTR quoted_string{
+        if (!is_valid_url($2)) {
+    fprintf(stderr, "Σφάλμα: Η τιμή του src είναι μη έγκυρη: %s\n", $2);
+    has_error = 1;
+  }
+}
 ;
 
 alt_attr:
@@ -296,7 +313,32 @@ value_attr:
 ;
 
 type_attr:
-    TYPE_ATTR quoted_string 
+    TYPE_ATTR quoted_string {
+      char *type_value = strndup($2 + 1, strlen($2) - 2);
+         if (!is_valid_type(type_value)) {
+    printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
+    has_error = 1;
+}
+
+if (strcmp(type_value, "submit") == 0) {
+    submit_count++;
+    last_element_is_submit = 1;
+ } else {
+    last_element_is_submit = 0;
+  }
+
+        if (submit_count > 1) {
+        printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
+        has_error = 1;
+    }
+    
+        if (submit_count == 1 && !last_element_is_submit) {
+        printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
+        has_error = 1;
+    }
+
+   
+}
 ;
 
 href_attr:

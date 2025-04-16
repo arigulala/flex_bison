@@ -4,7 +4,7 @@
   </head>
   <body>
     <form id="main">
-      <label id="main" for="esd" style="123">email</label>
+      <label id="mai" for="esd" style="123">email</label>
       <input type="text" id="emailInput" value="test@example.com"/>
     </form>
   </body>
