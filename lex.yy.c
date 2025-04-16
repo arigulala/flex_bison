@@ -565,12 +565,11 @@ char *yytext;
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 int line_num = 1;
 
-#line 571 "lex.yy.c"
+#line 570 "lex.yy.c"
 
-#line 573 "lex.yy.c"
+#line 572 "lex.yy.c"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -786,9 +785,9 @@ YY_DECL
 		}
 
 	{
-#line 14 "myhtml.l"
+#line 13 "myhtml.l"
 
-#line 791 "lex.yy.c"
+#line 790 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -848,241 +847,241 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 15 "myhtml.l"
+#line 14 "myhtml.l"
 { line_num++; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "myhtml.l"
+#line 15 "myhtml.l"
 { BEGIN(COMMENT); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 17 "myhtml.l"
+#line 16 "myhtml.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 18 "myhtml.l"
+#line 17 "myhtml.l"
 { /* consume comment content */ }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "myhtml.l"
+#line 19 "myhtml.l"
 {return INPUT_OPEN; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "myhtml.l"
+#line 20 "myhtml.l"
 {return SELF_CLOSE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 23 "myhtml.l"
+#line 22 "myhtml.l"
 { return MYHTML_OPEN; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 24 "myhtml.l"
+#line 23 "myhtml.l"
 { return MYHTML_CLOSE; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 26 "myhtml.l"
+#line 25 "myhtml.l"
 { return HEAD_OPEN; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 27 "myhtml.l"
+#line 26 "myhtml.l"
 { return HEAD_CLOSE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "myhtml.l"
+#line 28 "myhtml.l"
 { return BODY_OPEN; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "myhtml.l"
+#line 29 "myhtml.l"
 { return BODY_CLOSE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 "myhtml.l"
+#line 31 "myhtml.l"
 { return TITLE_OPEN; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 33 "myhtml.l"
+#line 32 "myhtml.l"
 { return TITLE_CLOSE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 35 "myhtml.l"
+#line 34 "myhtml.l"
 { return META_OPEN; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "myhtml.l"
+#line 35 "myhtml.l"
 { return TAG_END; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 39 "myhtml.l"
+#line 38 "myhtml.l"
 { return P_OPEN; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 40 "myhtml.l"
+#line 39 "myhtml.l"
 { return P_CLOSE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 42 "myhtml.l"
+#line 41 "myhtml.l"
 { return A_OPEN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "myhtml.l"
+#line 42 "myhtml.l"
 { return A_CLOSE; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 45 "myhtml.l"
+#line 44 "myhtml.l"
 { return IMG_OPEN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 47 "myhtml.l"
+#line 46 "myhtml.l"
 { return FORM_OPEN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 48 "myhtml.l"
+#line 47 "myhtml.l"
 { return FORM_CLOSE; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 50 "myhtml.l"
+#line 49 "myhtml.l"
 { return LABEL_OPEN; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 51 "myhtml.l"
+#line 50 "myhtml.l"
 { return LABEL_CLOSE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 53 "myhtml.l"
+#line 52 "myhtml.l"
 { return DIV_OPEN; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 54 "myhtml.l"
+#line 53 "myhtml.l"
 { return DIV_CLOSE; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 56 "myhtml.l"
+#line 55 "myhtml.l"
 { return ID_ATTR; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 57 "myhtml.l"
+#line 56 "myhtml.l"
 { return HREF_ATTR; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 58 "myhtml.l"
+#line 57 "myhtml.l"
 { return SRC_ATTR; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 59 "myhtml.l"
+#line 58 "myhtml.l"
 { return ALT_ATTR; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 60 "myhtml.l"
+#line 59 "myhtml.l"
 { return TYPE_ATTR; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 61 "myhtml.l"
+#line 60 "myhtml.l"
 { return VALUE_ATTR; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 62 "myhtml.l"
+#line 61 "myhtml.l"
 { return FOR_ATTR; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 63 "myhtml.l"
+#line 62 "myhtml.l"
 { return STYLE_ATTR; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 64 "myhtml.l"
+#line 63 "myhtml.l"
 { return WIDTH_ATTR; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 65 "myhtml.l"
+#line 64 "myhtml.l"
 { return HEIGHT_ATTR; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 66 "myhtml.l"
+#line 65 "myhtml.l"
 { return CHARSET_ATTR; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 67 "myhtml.l"
+#line 66 "myhtml.l"
 { return NAME_ATTR; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 68 "myhtml.l"
+#line 67 "myhtml.l"
 { return CONTENT_ATTR; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 71 "myhtml.l"
+#line 70 "myhtml.l"
 { yylval.str = strdup(yytext); return STRING; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 72 "myhtml.l"
+#line 71 "myhtml.l"
 { yylval.str = strdup(yytext); return STRING; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 74 "myhtml.l"
+#line 73 "myhtml.l"
 { yylval.num = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 75 "myhtml.l"
+#line 74 "myhtml.l"
 { /* skip whitespace */ }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 77 "myhtml.l"
+#line 76 "myhtml.l"
 { yylval.str = strdup(yytext); return TEXT; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 78 "myhtml.l"
+#line 77 "myhtml.l"
 { printf("Λάθος χαρακτήρας στη γραμμή %d: %s\n", line_num, yytext); exit(1); }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 79 "myhtml.l"
+#line 78 "myhtml.l"
 ECHO;
 	YY_BREAK
-#line 1085 "lex.yy.c"
+#line 1084 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -2051,5 +2050,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 79 "myhtml.l"
+#line 78 "myhtml.l"
 

@@ -314,31 +314,32 @@ value_attr:
 
 type_attr:
     TYPE_ATTR quoted_string {
-      char *type_value = strndup($2 + 1, strlen($2) - 2);
-         if (!is_valid_type(type_value)) {
-    printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
-    has_error = 1;
-}
+        char *type_value = strndup($2 + 1, strlen($2) - 2);
 
-if (strcmp(type_value, "submit") == 0) {
-    submit_count++;
-    last_element_is_submit = 1;
- } else {
-    last_element_is_submit = 0;
-  }
+        if (!is_valid_type(type_value)) {
+            printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
+            has_error = 1;
+        }
 
         if (submit_count > 1) {
-        printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
-        has_error = 1;
-    }
-    
-        if (submit_count == 1 && !last_element_is_submit) {
-        printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
-        has_error = 1;
-    }
+            printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
+            has_error = 1;
+        }
 
-   
-}
+        if (submit_count == 1 && !last_element_is_submit) {
+            printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
+            has_error = 1;
+        }
+
+        if (strcmp(type_value, "submit") == 0) {
+            submit_count++;
+            last_element_is_submit = 1;
+        } else {
+            last_element_is_submit = 0;
+        }
+
+        free(type_value);  // Προαιρετικά για αποφυγή memory leak
+    }
 ;
 
 href_attr:

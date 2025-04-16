@@ -564,8 +564,8 @@ static const yytype_uint16 yyrline[] =
      203,   204,   209,   210,   214,   215,   218,   219,   222,   226,
      227,   230,   231,   235,   236,   240,   244,   245,   249,   250,
      254,   258,   259,   263,   264,   267,   271,   283,   287,   291,
-     300,   304,   308,   312,   316,   345,   354,   358,   359,   363,
-     364,   365,   369
+     300,   304,   308,   312,   316,   346,   355,   359,   360,   364,
+     365,   366,   370
 };
 #endif
 
@@ -1622,35 +1622,36 @@ yyreduce:
   case 84:
 #line 316 "myhtml.y"
     {
-      char *type_value = strndup((yyvsp[(2) - (2)].str) + 1, strlen((yyvsp[(2) - (2)].str)) - 2);
-         if (!is_valid_type(type_value)) {
-    printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
-    has_error = 1;
-}
+        char *type_value = strndup((yyvsp[(2) - (2)].str) + 1, strlen((yyvsp[(2) - (2)].str)) - 2);
 
-if (strcmp(type_value, "submit") == 0) {
-    submit_count++;
-    last_element_is_submit = 1;
- } else {
-    last_element_is_submit = 0;
-  }
+        if (!is_valid_type(type_value)) {
+            printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
+            has_error = 1;
+        }
 
         if (submit_count > 1) {
-        printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
-        has_error = 1;
-    }
-    
-        if (submit_count == 1 && !last_element_is_submit) {
-        printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
-        has_error = 1;
-    }
+            printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
+            has_error = 1;
+        }
 
-   
-;}
+        if (submit_count == 1 && !last_element_is_submit) {
+            printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
+            has_error = 1;
+        }
+
+        if (strcmp(type_value, "submit") == 0) {
+            submit_count++;
+            last_element_is_submit = 1;
+        } else {
+            last_element_is_submit = 0;
+        }
+
+        free(type_value);  // Προαιρετικά για αποφυγή memory leak
+    ;}
     break;
 
   case 85:
-#line 345 "myhtml.y"
+#line 346 "myhtml.y"
     {
         if (!is_valid_href((yyvsp[(2) - (2)].str))) {
             printf("Σφάλμα: Η τιμή του href είναι μη έγκυρη: \"%s\"\n", (yyvsp[(2) - (2)].str));
@@ -1661,7 +1662,7 @@ if (strcmp(type_value, "submit") == 0) {
 
 
 /* Line 1267 of yacc.c.  */
-#line 1665 "myhtml.tab.c"
+#line 1666 "myhtml.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1875,7 +1876,7 @@ yyreturn:
 }
 
 
-#line 372 "myhtml.y"
+#line 373 "myhtml.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Σφάλμα στη γραμμή %d: %s\n", line_num, s);

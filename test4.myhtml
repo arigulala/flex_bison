@@ -8,11 +8,12 @@
     <div id="formSection" style="margin-top: 20px;">
       <form id="userForm" style="border: 1px solid black;">
         <label for="usernameInput" id="usernameLabel">Username:</label>
+        <input type="submit" id="login" value="Log in" />
         <input type="text" id="usernameInput" value="guestUser" />
         <label for="passwordInput" id="passwordLabel">Password:</label>
         <input type="checkbox" id="passwordInput" />
+        <input type="radio" id="logiButton" value="Log in" /> 
         <input type="radio" id="loginButton" value="Log in" />
-        <input type="submit" id="login" value="Log in" />
       </form>
       <a href="https://www.login.com" id="ww">Forgot Password?</a>
     </div>
