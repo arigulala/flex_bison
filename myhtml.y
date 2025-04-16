@@ -1,19 +1,19 @@
 %{
-#define MAX_IDS 1000
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-extern int yylex(void);
-void yyerror(const char *s);
-extern int is_valid_url(const char *url);
-extern int is_valid_href(const char *href);
-extern int is_valid_type(const char *type);
-extern int line_num;
+#include <string.h>   
+#define MAX_IDS 1000
 int submit_count = 0;
 int last_element_is_submit = 0;
 int has_error = 0;
 char* ids_seen[MAX_IDS];
 int ids_count = 0;
+void yyerror(const char *s);
+extern int yylex(void);
+extern int is_valid_url(const char *url);
+extern int is_valid_href(const char *href);
+extern int is_valid_type(const char *type);
+extern int line_num;
 
 int is_valid_type(const char *type) {
     return (
@@ -47,8 +47,8 @@ void add_id(const char* id) {
     int num;
 }
 
-%type <str> quoted_string
 %type <str> text
+%type <str> quoted_string
 %token <str> STRING TEXT
 %token <num> NUMBER
 
