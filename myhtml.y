@@ -320,7 +320,13 @@ type_attr:
             printf("Σφάλμα: Μη αποδεκτή τιμή για type: \"%s\"\n", type_value);
             has_error = 1;
         }
-
+        if (strcmp(type_value, "submit") == 0) {
+            submit_count++;
+            last_element_is_submit = 1;
+        } else {
+            last_element_is_submit = 0;
+        }
+        
         if (submit_count > 1) {
             printf("Σφάλμα: Υπάρχουν παραπάνω από ένα input type=\"submit\".\n");
             has_error = 1;
@@ -329,13 +335,6 @@ type_attr:
         if (submit_count == 1 && !last_element_is_submit) {
             printf("Σφάλμα: Το input type=\"submit\" πρέπει να είναι το τελευταίο στοιχείο.\n");
             has_error = 1;
-        }
-
-        if (strcmp(type_value, "submit") == 0) {
-            submit_count++;
-            last_element_is_submit = 1;
-        } else {
-            last_element_is_submit = 0;
         }
 
         free(type_value);  // Προαιρετικά για αποφυγή memory leak
