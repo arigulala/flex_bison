@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 extern int yylex(void);
+extern int is_valid_href(const char *href);
 void yyerror(const char *s);
 extern int line_num;
 int has_error = 0;
@@ -299,7 +300,12 @@ type_attr:
 ;
 
 href_attr:
- HREF_ATTR quoted_string
+  HREF_ATTR quoted_string {
+        if (!is_valid_href($2)) {
+            printf("Σφάλμα: Η τιμή του href είναι μη έγκυρη: \"%s\"\n", $2);
+            has_error = 1;
+        }
+    }
  ;
 
 quoted_string:
@@ -314,7 +320,7 @@ text_opt:
 text:
     TEXT text
     | STRING text
-    | 
+    | /*empty*/
 ;
 
 comment:
@@ -322,7 +328,6 @@ comment:
 ;
 
 %%
-
 void yyerror(const char *s) {
     fprintf(stderr, "Σφάλμα στη γραμμή %d: %s\n", line_num, s);
     exit(1);

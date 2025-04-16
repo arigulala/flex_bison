@@ -159,6 +159,7 @@
 #include <stdlib.h>
 #include <string.h>
 extern int yylex(void);
+extern int is_valid_href(const char *href);
 void yyerror(const char *s);
 extern int line_num;
 int has_error = 0;
@@ -204,13 +205,13 @@ void add_id(const char* id) {
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 32 "myhtml.y"
+#line 33 "myhtml.y"
 {
     char* str;
     int num;
 }
 /* Line 193 of yacc.c.  */
-#line 214 "myhtml.tab.c"
+#line 215 "myhtml.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -223,7 +224,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 227 "myhtml.tab.c"
+#line 228 "myhtml.tab.c"
 
 #ifdef short
 # undef short
@@ -543,16 +544,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    64,    64,    68,    72,    73,    77,    81,    85,    86,
-      90,    99,   100,   104,   108,   112,   116,   117,   121,   122,
-     123,   124,   125,   126,   130,   134,   135,   140,   141,   145,
-     148,   150,   151,   155,   156,   157,   158,   159,   163,   167,
-     168,   169,   170,   171,   172,   176,   177,   181,   182,   186,
-     190,   191,   196,   197,   201,   202,   205,   206,   209,   213,
-     214,   217,   218,   222,   223,   227,   231,   232,   236,   237,
-     241,   245,   246,   250,   251,   254,   258,   270,   274,   278,
-     282,   286,   290,   294,   298,   302,   306,   310,   311,   315,
-     316,   317,   321
+       0,    65,    65,    69,    73,    74,    78,    82,    86,    87,
+      91,   100,   101,   105,   109,   113,   117,   118,   122,   123,
+     124,   125,   126,   127,   131,   135,   136,   141,   142,   146,
+     149,   151,   152,   156,   157,   158,   159,   160,   164,   168,
+     169,   170,   171,   172,   173,   177,   178,   182,   183,   187,
+     191,   192,   197,   198,   202,   203,   206,   207,   210,   214,
+     215,   218,   219,   223,   224,   228,   232,   233,   237,   238,
+     242,   246,   247,   251,   252,   255,   259,   271,   275,   279,
+     283,   287,   291,   295,   299,   303,   312,   316,   317,   321,
+     322,   323,   327
 };
 #endif
 
@@ -1574,7 +1575,7 @@ yyreduce:
   switch (yyn)
     {
         case 10:
-#line 90 "myhtml.y"
+#line 91 "myhtml.y"
     {
         if (strlen((yyvsp[(2) - (3)].str)) > 60) {
             fprintf(stderr, "Σφάλμα: Το περιεχόμενο του <title> υπερβαίνει τους 60 χαρακτήρες.\n");
@@ -1584,7 +1585,7 @@ yyreduce:
     break;
 
   case 76:
-#line 258 "myhtml.y"
+#line 259 "myhtml.y"
     {
         if (id_exists((yyvsp[(2) - (2)].str))) {
             fprintf(stderr, "Σφάλμα: Το id \"%s\" έχει ήδη χρησιμοποιηθεί.\n", (yyvsp[(2) - (2)].str));
@@ -1596,9 +1597,19 @@ yyreduce:
     ;}
     break;
 
+  case 85:
+#line 303 "myhtml.y"
+    {
+        if (!is_valid_href((yyvsp[(2) - (2)].str))) {
+            printf("Σφάλμα: Η τιμή του href είναι μη έγκυρη: \"%s\"\n", (yyvsp[(2) - (2)].str));
+            has_error = 1;
+        }
+    ;}
+    break;
+
 
 /* Line 1267 of yacc.c.  */
-#line 1602 "myhtml.tab.c"
+#line 1613 "myhtml.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1812,8 +1823,7 @@ yyreturn:
 }
 
 
-#line 324 "myhtml.y"
-
+#line 330 "myhtml.y"
 
 void yyerror(const char *s) {
     fprintf(stderr, "Σφάλμα στη γραμμή %d: %s\n", line_num, s);
