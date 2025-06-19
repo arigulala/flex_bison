@@ -1,0 +1,4 @@
+lex.yy.c
+myParser
+myhtlm.tab.c
+myhtlm.tab.h
