@@ -8,7 +8,7 @@
     <div style="lightgray" id="main">
       <p id="intro">Welcome to our website!</p>
       <a href="/label/index.html" id="qq">Click here to visit</a>
-      <img  id="ela" src="/image.jpg" alt="Example Image"  height=200  />
+      <img  id="ela" src="/images/image.jpg" alt="Example Image"  height=200  />
       <form id="contactForm" style="font-size: 12px;">
         <label for="emailInput" id="emailLabel"  style="color: blue;">Email</label>
         <input type="text" id="emailInput" value="user@example.com" />
