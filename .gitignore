@@ -1,4 +1,4 @@
 lex.yy.c
 myParser
-myhtlm.tab.c
-myhtlm.tab.h
+myhtlml.tab.c
+myhtlml.tab.h
