@@ -12,7 +12,6 @@ void yyerror(const char *s);
 extern int yylex(void);
 extern int is_valid_url(const char *url);
 extern int is_valid_href(const char *href);
-extern int is_valid_type(const char *type);
 extern int line_num;
 
 int is_valid_type(const char *type) {
@@ -275,7 +274,7 @@ id_attr:
         } else {
             add_id($2);
         }
-        free($2); // αν χρησιμοποιείς strdup στον lexer
+        free($2); 
     }
 ;
 

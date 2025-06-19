@@ -67,8 +67,8 @@ int line_num = 1;
 "content="         { return CONTENT_ATTR; }
 
 
-\"([^\"\n]*)\"     { yylval.str = strdup(yytext); return STRING; }
-\'([^\'\n]*)\'     { yylval.str = strdup(yytext); return STRING; }
+\"([^\"\n]*)\"     { yylval.str = strdup(yytext); return STRING; } // '' string 
+\'([^\'\n]*)\'     { yylval.str = strdup(yytext); return STRING; } // "" string
 
 [0-9]+             { yylval.num = atoi(yytext); return NUMBER; }
 [ \t\r]+           { /* skip whitespace */ }
