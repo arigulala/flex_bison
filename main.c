@@ -17,10 +17,9 @@ int is_valid_url(const char *url)
         char *start = strndup(url + 1, len - 2);
         if (!start)
             return 0;
-
         regex_t regex;
         int result;
-        const char *pattern = "^(https?://|/|#)[^\\s\"']+$";
+        const char *pattern = "^(https?://|/|\\./|\\.\\./|#)?[^[:space:]\"']+$";
         regcomp(&regex, pattern, REG_EXTENDED | REG_NOSUB);
         result = regexec(&regex, start, 0, NULL, 0);
         regfree(&regex);
